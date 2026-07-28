@@ -4,6 +4,8 @@ import { Head, Link } from '@inertiajs/vue3';
 import WOW from 'wow.js';
 import Navbar from '../Components/Navbar.vue';
 import Footer from '../Components/Footer.vue';
+import Preloader from '../Components/Preloader.vue';
+import ScrollToTop from '../Components/ScrollToTop.vue';
 
 defineProps({
     title: {
@@ -188,10 +190,24 @@ const handleKeyDown = (e) => {
     }
 };
 
+const initWow = () => {
+    if (typeof window !== 'undefined') {
+        const wow = new WOW({
+            boxClass: 'wow',
+            animateClass: 'animate__animated',
+            offset: 40,
+            mobile: true,
+            live: true,
+        });
+        wow.init();
+    }
+};
+
 onMounted(() => {
     if (typeof window !== 'undefined') {
-        new WOW({ boxClass: 'wow', animateClass: 'animate__animated', offset: 60, mobile: true, live: false }).init();
+        window.addEventListener('preloaderFinished', initWow);
         window.addEventListener('keydown', handleKeyDown);
+        setTimeout(initWow, 800);
     }
 });
 
@@ -204,6 +220,9 @@ onUnmounted(() => {
 
 <template>
     <Head :title="title" />
+
+    <!-- Corporate Brand Preloader Intro -->
+    <Preloader />
 
     <div class="min-h-screen bg-[#F9F9FF] font-body text-[#111C2C] selection:bg-[#004AAD] selection:text-white">
         <!-- ================= NAVBAR ================= -->
@@ -451,5 +470,8 @@ onUnmounted(() => {
 
         <!-- ================= FOOTER ================= -->
         <Footer />
+
+        <!-- Scroll To Top Floating Button -->
+        <ScrollToTop />
     </div>
 </template>

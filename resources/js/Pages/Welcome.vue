@@ -5,6 +5,8 @@ import WOW from 'wow.js';
 import Footer from '../Components/Footer.vue';
 import Navbar from '../Components/Navbar.vue';
 import CountUp from '../Components/CountUp.vue';
+import Preloader from '../Components/Preloader.vue';
+import ScrollToTop from '../Components/ScrollToTop.vue';
 
 defineProps({
     title: {
@@ -13,15 +15,24 @@ defineProps({
     },
 });
 
-onMounted(() => {
+const initWow = () => {
     if (typeof window !== 'undefined') {
-        new WOW({
+        const wow = new WOW({
             boxClass: 'wow',
             animateClass: 'animate__animated',
-            offset: 80,
+            offset: 40,
             mobile: true,
-            live: false,
-        }).init();
+            live: true,
+        });
+        wow.init();
+    }
+};
+
+onMounted(() => {
+    if (typeof window !== 'undefined') {
+        window.addEventListener('preloaderFinished', initWow);
+        // Fallback initialization
+        setTimeout(initWow, 800);
     }
 });
 
@@ -77,18 +88,36 @@ const newsItems = [
 <template>
     <Head :title="title" />
 
+    <!-- Corporate Brand Preloader Intro -->
+    <Preloader />
+
     <div class="min-h-screen bg-[#F4F8FC] font-body text-[#111C2C] selection:bg-[#004AAD] selection:text-white">
         <!-- ================= MAIN NAVBAR COMPONENT ================= -->
         <Navbar activeMenu="beranda" />
 
         <!-- ================= SECTION 1: HERO SECTION ================= -->
-        <section class="relative pt-10 pb-16 md:pt-16 md:pb-28 bg-gradient-to-b from-[#F4F8FC] to-white">
-            <div class="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <section class="relative pt-8 pb-16 md:pt-14 md:pb-24 bg-gradient-to-b from-[#EBF3FB] via-[#F4F8FC] to-white overflow-hidden">
+            <!-- Right Full-Bleed Building Background Image -->
+            <div class="absolute top-0 right-0 w-full lg:w-[58%] h-full pointer-events-none z-0 wow animate__animated animate__fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
+                <!-- Soft Left Fade Mask Overlay (Much More Transparent) -->
+                <div class="absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-[#EBF3FB]/30 to-transparent z-10"></div>
+                <!-- Soft Bottom Fade Overlay -->
+                <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white/70 to-transparent z-10"></div>
+
+                <img 
+                    src="/images/building_koperasi.png" 
+                    alt="Gedung Koperasi Kusuma Mulya" 
+                    class="w-full h-full object-cover object-center lg:object-right-top select-none"
+                    style="mask-image: linear-gradient(to right, transparent 0%, black 6%, black 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 100%);"
+                />
+            </div>
+
+            <div class="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[380px] lg:min-h-[460px]">
                     <!-- Left Column Text -->
                     <div class="lg:col-span-6 space-y-6 wow animate__animated animate__fadeInLeft" data-wow-duration="1s">
                         <!-- Pill Badge -->
-                        <div class="inline-flex items-center gap-2 bg-[#E7EEFF] text-[#004AAD] px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wide">
+                        <div class="inline-flex items-center gap-2 bg-[#E7EEFF] text-[#004AAD] px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wide border border-blue-200/50">
                             <span class="w-2 h-2 rounded-full bg-[#004AAD]"></span>
                             KOPERASI SIMPAN PINJAM
                         </div>
@@ -110,7 +139,7 @@ const newsItems = [
                             <a 
                                 href="https://wa.me/6281234567890" 
                                 target="_blank"
-                                class="inline-flex items-center gap-2 bg-[#004AAD] hover:bg-[#00357F] text-white px-6 py-3 rounded-full font-bold text-sm shadow-md transition-colors duration-200"
+                                class="inline-flex items-center gap-2 bg-[#004AAD] hover:bg-[#00357F] text-white px-6 py-3.5 rounded-full font-bold text-sm shadow-lg shadow-blue-600/20 transition-all duration-200"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
@@ -119,7 +148,7 @@ const newsItems = [
                             </a>
                             <Link 
                                 href="/tentang-kami/informasi-umum" 
-                                class="inline-flex items-center gap-2 bg-[#E7EEFF] hover:bg-blue-100 text-[#004AAD] px-6 py-3 rounded-full font-bold text-sm transition-colors duration-200"
+                                class="inline-flex items-center gap-2 bg-[#E7EEFF] hover:bg-blue-100 text-[#004AAD] px-6 py-3.5 rounded-full font-bold text-sm transition-colors duration-200 border border-blue-200/50"
                             >
                                 Pelajari Selengkapnya
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,16 +158,8 @@ const newsItems = [
                         </div>
                     </div>
 
-                    <!-- Right Building Image -->
-                    <div class="lg:col-span-6 relative wow animate__animated animate__fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
-                        <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/80 bg-white">
-                            <img 
-                                src="/images/building_koperasi.png" 
-                                alt="Gedung Koperasi Kusuma Mulya" 
-                                class="w-full h-[360px] sm:h-[420px] object-cover"
-                            />
-                        </div>
-                    </div>
+                    <!-- Right Empty Column Spacer for Grid Alignment -->
+                    <div class="hidden lg:block lg:col-span-6"></div>
                 </div>
             </div>
 
@@ -227,10 +248,12 @@ const newsItems = [
 
                     <!-- Right Content Info -->
                     <div class="lg:col-span-7 space-y-4 wow animate__animated animate__fadeInRight">
-                        <div class="text-[#004AAD] font-extrabold text-xs tracking-wider uppercase">PROFIL KOPERASI</div>
-                        <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-[#001945]">
-                            Koperasi Untuk Anggota, Oleh Anggota
+                        <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-[#004AAD] uppercase tracking-wide">
+                            PROFIL KOPERASI
                         </h2>
+                        <div class="font-heading text-2xl sm:text-3xl font-extrabold text-[#001945] leading-snug">
+                            Koperasi Untuk Anggota, Oleh Anggota
+                        </div>
                         <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
                             Koperasi Kusuma Mulya adalah koperasi simpan pinjam yang berkomitmen untuk meningkatkan kesejahteraan anggota melalui layanan yang profesional, transparan, dan berkelanjutan.
                         </p>
@@ -253,7 +276,7 @@ const newsItems = [
                 <div class="text-center space-y-2 wow animate__animated animate__fadeInDown">
                     <div class="inline-flex items-center gap-3">
                         <span class="w-8 h-[2px] bg-[#004AAD]"></span>
-                        <span class="text-[#004AAD] font-extrabold text-sm tracking-wider uppercase">VISI & MISI</span>
+                        <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-[#004AAD] uppercase tracking-wide">VISI & MISI</h2>
                         <span class="w-8 h-[2px] bg-[#004AAD]"></span>
                     </div>
                 </div>
@@ -312,7 +335,7 @@ const newsItems = [
                 <div class="text-center space-y-2 wow animate__animated animate__fadeInDown">
                     <div class="inline-flex items-center gap-3">
                         <span class="w-8 h-[2px] bg-[#004AAD]"></span>
-                        <span class="text-[#004AAD] font-extrabold text-sm tracking-wider uppercase">LAYANAN KAMI</span>
+                        <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-[#004AAD] uppercase tracking-wide">LAYANAN KAMI</h2>
                         <span class="w-8 h-[2px] bg-[#004AAD]"></span>
                     </div>
                 </div>
@@ -564,6 +587,9 @@ const newsItems = [
 
         <!-- ================= SECTION 8: FOOTER ================= -->
         <Footer />
+
+        <!-- Scroll To Top Floating Button -->
+        <ScrollToTop />
     </div>
 </template>
 

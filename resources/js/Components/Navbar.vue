@@ -57,12 +57,7 @@ const isTentangKamiOpen = ref(false);
         <div class="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
             <!-- Logo & Brand Name -->
             <Link href="/" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-[#004AAD] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-4.5H8.5V10H11V7.5h2V10h2.5v2H13v4.5z"/>
-                        <path d="M12 4a8 8 0 100 16 8 8 0 000-16zm-1 5a1 1 0 012 0v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H8a1 1 0 110-2h3V9z"/>
-                    </svg>
-                </div>
+                <img src="/images/koperasi_logo.svg" alt="Logo Koperasi Kusuma Mulya" class="w-10 h-10 object-contain flex-shrink-0" />
                 <div>
                     <div class="font-heading text-lg sm:text-xl font-extrabold tracking-tight text-[#00357F] leading-tight group-hover:text-[#004AAD] transition-colors">
                         KOPERASI KUSUMA MULYA

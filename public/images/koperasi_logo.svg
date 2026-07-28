@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <path d="M50 8C30 8 15 25 15 45C15 68 35 85 50 92C65 85 85 68 85 45C85 25 70 8 50 8Z" fill="url(#logo-grad)" opacity="0.15"/>
+  <path d="M50 15C38 25 32 38 34 52C36 66 45 76 50 82C55 76 64 66 66 52C68 38 62 25 50 15Z" fill="url(#logo-grad)"/>
+  <path d="M50 28C43 35 40 44 41 53C42 62 47 68 50 72C53 68 58 62 59 53C60 44 57 35 50 28Z" fill="#FFFFFF"/>
+  <path d="M50 40C47 44 45 50 46 55C47 60 49 63 50 65C51 63 53 60 54 55C55 50 53 44 50 40Z" fill="url(#logo-grad)"/>
+  <defs>
+    <linearGradient id="logo-grad" x1="15" y1="8" x2="85" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#004AAD"/>
+      <stop offset="1" stop-color="#001945"/>
+    </linearGradient>
+  </defs>
+</svg>
